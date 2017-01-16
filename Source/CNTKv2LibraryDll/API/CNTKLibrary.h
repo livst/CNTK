@@ -3621,7 +3621,7 @@ namespace CNTK
         //
         virtual size_t ParallelizationAfter()
         {
-            return 0;
+            return m_distributeAfterSamples;
         }
 
         //
@@ -3631,11 +3631,12 @@ namespace CNTK
         CNTK_API virtual bool Update(std::unordered_map<Parameter, NDArrayViewPtr>& gradientValues, MinibatchInfo& minibatch) = 0;
 
     protected:
-        DistributedLearner(DistributedCommunicatorPtr communicator, LearnerPtr learner)
+        DistributedLearner(DistributedCommunicatorPtr communicator, LearnerPtr learner, size_t distributeAfterSamples)
             : Learner(learner? learner->Parameters() : std::vector<Parameter>(),
                       LearningRateSchedule(0, LearningRateSchedule::UnitType::Sample)),
               m_learner(learner),
-              m_communicator(communicator)
+              m_communicator(communicator),
+              m_distributeAfterSamples(distributeAfterSamples)
         {
             if (!m_learner)
                 InvalidArgument("Learner is not allowed to be null.");
@@ -3646,6 +3647,7 @@ namespace CNTK
 
         const LearnerPtr m_learner;
         const DistributedCommunicatorPtr m_communicator;
+        const size_t m_distributeAfterSamples;
 
         // Disallow copy and move construction and assignment
         DistributedLearner(const DistributedLearner&) = delete; DistributedLearner& operator=(const DistributedLearner&) = delete; DistributedLearner& operator=(DistributedLearner&&) = delete; DistributedLearner(DistributedLearner&&) = delete;

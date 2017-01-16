@@ -30,7 +30,7 @@ namespace
     const std::wstring g_labelsStreamName = L"labels";
     const std::wstring g_inputFile = L"SimpleDataTrain_cntk_text.txt";
     const size_t minibatchSize = 25;
-    const size_t numSamplesPerSweep = 10000;
+    const size_t numSamplesPerSweep = 5000;
     const size_t numSweepsToTrainWith = 2;
     const size_t numMinibatchesToTrain = (numSamplesPerSweep * numSweepsToTrainWith) / minibatchSize;
     const size_t totalNumberOfSamples = numSamplesPerSweep * numSweepsToTrainWith;
