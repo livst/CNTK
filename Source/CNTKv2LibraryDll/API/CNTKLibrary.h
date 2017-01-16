@@ -2397,10 +2397,10 @@ namespace CNTK
         /// and the user is responsible for ensuring that the contents of the inputs and outputs are unchanged until after any uses of the BackPropState instance
         /// for backpropagating gradients through this Function.
         ///
-		CNTK_API BackPropStatePtr Forward(const std::unordered_map<Variable, ValuePtr>& arguments,
-										  std::unordered_map<Variable, ValuePtr>& outputs,
-										  const DeviceDescriptor& computeDevice = DeviceDescriptor::UseDefaultDevice(),
-										  const std::unordered_set<Variable>& outputsToRetainBackwardStateFor = {});
+        CNTK_API BackPropStatePtr Forward(const std::unordered_map<Variable, ValuePtr>& arguments,
+                                          std::unordered_map<Variable, ValuePtr>& outputs,
+                                          const DeviceDescriptor& computeDevice = DeviceDescriptor::UseDefaultDevice(),
+                                          const std::unordered_set<Variable>& outputsToRetainBackwardStateFor = {});
 
         ///
         /// Backpropagates supplied 'rootGradientValues' for one or more of the output variables of the Function, to produce gradient Values
@@ -2706,7 +2706,7 @@ namespace CNTK
         Function(const Function&) = delete; Function(Function&&) = delete; Function& operator=(const Function&) = delete; Function& operator=(Function&&) = delete;
 
     public:
-		CNTK_API Function(const std::vector<Variable>& inputs, const std::vector<Variable>& outputs, const std::wstring& name = L"", const std::wstring& uid = Internal::GenerateUid(L"UserDefinedFunction"));
+        CNTK_API Function(const std::vector<Variable>& inputs, const std::vector<Variable>& outputs, const std::wstring& name = L"", const std::wstring& uid = Internal::GenerateUid(L"UserDefinedFunction"));
 
     private:
         CNTK_API Function(const std::vector<Variable>& inputs, const std::vector<Variable>& outputs, Dictionary&& functionConfig, const FunctionPtr& rootFunction, const std::wstring& name, const std::wstring& uid);
