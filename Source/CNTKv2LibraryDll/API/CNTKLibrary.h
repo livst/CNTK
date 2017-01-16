@@ -4112,7 +4112,7 @@ namespace CNTK
 
     ///
     /// Base abstract class that represents a training session.
-    /// Dervied classes can redefine different aspects of training, overriding base virtual methods (GetMinibatchSize, OnMinibatchStart, etc.)
+    /// Derived classes can redefine different aspects of training, overriding base virtual methods (GetMinibatchSize, OnMinibatchStart, etc.)
     ///
     class TrainingSession
     {
@@ -4128,7 +4128,7 @@ namespace CNTK
         ///
         /// Runs the session.
         ///
-        CNTK_API void Run(const DeviceDescriptor& computeDevice);
+        CNTK_API void Train(const DeviceDescriptor& computeDevice);
 
         ///
         /// Restores a session from a checkpoint.
@@ -4138,45 +4138,45 @@ namespace CNTK
         CNTK_API virtual ~TrainingSession() {}
 
     public:
-        //
-        // Optionally overridable, called each time before a new minibatch is requested from the minibatch source
-        // during training (from Run method).
-        //
+        ///
+        /// Optionally overridable, called each time before a new minibatch is requested from the minibatch source
+        /// during training (from Run method).
+        ///
         virtual size_t GetMinibatchSize()
         {
             return m_minibatchSizeSchedule[Trainer()->TotalNumberOfSamplesSeen()];
         }
 
-        //
-        // Optionally overridable callback that is invoked before each minibatch.
-        //
+        ///
+        /// Optionally overridable callback that is invoked before each minibatch.
+        ///
         CNTK_API virtual void OnMinibatchStart() {};
 
-        //
-        // Optionally overridable callback that is invoked after each minibatch.
-        //
+        ///
+        /// Optionally overridable callback that is invoked after each minibatch.
+        ///
         CNTK_API virtual void OnMinibatchEnd() {};
 
-        //
-        // Optionally overridable callback that is invoked before each minibatch.
-        //
+        ///
+        /// Optionally overridable callback that is invoked before each checkpoint.
+        ///
         CNTK_API virtual void OnCheckpointStart() {};
 
-        //
-        // Optionally overridable callback that is invoked before each minibatch.
-        //
+        ///
+        /// Optionally overridable callback that is invoked after each checkpoint.
+        ///
         CNTK_API virtual void OnCheckpointEnd() {};
 
     protected:
-        //
-        // Accessors.
-        //
+        ///
+        /// Accessors.
+        ///
         TrainerPtr Trainer() const { return m_trainer; }
 
         MinibatchSourcePtr TrainingMinibatchSource() const { return m_trainingSource; }
 
     private:
-        // Disallow copy and move construction and assignment
+        /// Disallow copy and move construction and assignment
         TrainingSession(const TrainingSession&) = delete; TrainingSession& operator=(const TrainingSession&) = delete; TrainingSession& operator=(TrainingSession&&) = delete; TrainingSession(TrainingSession&&) = delete;
 
         void SaveCheckpoint();

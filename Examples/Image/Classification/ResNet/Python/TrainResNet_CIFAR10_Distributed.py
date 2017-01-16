@@ -103,7 +103,7 @@ def train_and_test(network, trainer, train_source, test_source, progress_printer
         cntk.minibatch_size_schedule(minibatch_size), progress_printer, input_map, "ConvNet_CIFAR10_DataAug_", epoch_size)
     training_session.run()
 
-    # TODO: Eval session, evaluation parameters
+    # TODO: Stay tuned for an upcoming simpler EvalSession API for test/validation.
     epoch_size     = 10000
     minibatch_size = 16
 
